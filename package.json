@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@azure/functions": "^3.5.1"
+  }
+}
