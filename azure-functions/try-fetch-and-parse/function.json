@@ -1,0 +1,11 @@
+{
+  "bindings": [
+    {
+      "name": "myTimer",
+      "type": "httpTrigger",
+      "direction": "in",
+      "schedule": "0 */4 * * * *"
+    }
+  ],
+  "scriptFile": "../dist/try-fetch-and-parse/index.js"
+}
