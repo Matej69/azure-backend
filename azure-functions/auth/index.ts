@@ -1,19 +1,28 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 
+async function fetchData(): Promise<string> {      
+    return new Promise(async(resolve, reject) => {
+        const res = await fetch("https://mpr.datamart.ams.usda.gov/services/v1.1/reports/2453?q=report_date=05/19/2023")
+        if(res.ok) {
+            const body = await res.json()
+            return resolve(body)
+        }
+        else
+        resolve('Greška kod dohvata')
+    }) 
+}
+
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
     const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? " ########## Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
+    const apiData = await fetchData()
 
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: {
-            parsed: JSON.stringify(req),
-            message: responseMessage
-        }
-    };
+        context.res = {
+            body: {
+                apiData
+            }
+        };
+    context.log(`context.res.body = ${context.res.body}`);
 
 };
 
