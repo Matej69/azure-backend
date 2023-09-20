@@ -8,7 +8,7 @@ async function fetchData(): Promise<string> {
             return resolve(body)
         }
         else
-        resolve('Greška kod dohvatas111')
+        resolve('Greška kod dohvatas111 ### ')
     }) 
 }
 
